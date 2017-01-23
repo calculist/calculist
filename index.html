@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Calculist</title>
+  </head>
+  <body>
+    <script src="bundle.js" type="text/javascript"></script>
+    <script>
+      var calculistDocument = calculist.new({
+        text:'hello',
+        items: [{
+          text: 'world',
+          items: []
+        },{
+          text: 'abc',
+          items: [{
+            text: '123',
+            items: []
+          }]
+        }]
+      });
+      calculist.render(calculistDocument, document.body);
+    </script>
+  </body>
+</html>
