@@ -4,6 +4,6 @@ Calculist is a thinking tool for problem solvers. Check out the [Kickstarter pro
 
 ## About this repo
 
-This GitHub repository is where the source code will live once the private beta is complete. 
-
 For private beta participants, please use this repository's [issues](https://github.com/calculist/calculist/issues) to report bugs or make feature requests. If you don't have a GitHub account, you can email me at [dan@calculist.io](mailto:dan@calculist.io).
+
+The code in this repo is work in progress. The current working code can be found [here](https://github.com/calculist/app.calculist.io). Eventually, this repo will contain all the code that drives the document model and document editing interface.

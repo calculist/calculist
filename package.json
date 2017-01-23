@@ -4,6 +4,11 @@
   "description": "a thinking tool for problem solvers",
   "author": "Dan Allison <dan@calculist.io>",
   "main": "./main.js",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/calculist/calculist.git"
+  },
   "scripts": {
     "start": "webpack-dev-server"
   },
