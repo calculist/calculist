@@ -64,6 +64,20 @@ describe('calculation', () => {
     expect(list.$item(1).valueOf()).to.eq(5 - 2)
   })
 
+  it('references variables with dot accessor correctly', () => {
+    let list = calculist.new({
+      text: 'foo',
+      items: [
+        {
+          text: 'b',
+          items: [{text: 'uzz [=] 9'}]
+        },
+        {text: 'fizz [=] b.uzz'}
+      ]
+    })
+    expect(list.$item('fizz').valueOf()).to.eq(9)
+  })
+
   it('references `$name` correctly', () => {
     let list = calculist.new({ text: 'foo [=] $name + 1' })
     expect(list.valueOf()).to.eq('foo1')
