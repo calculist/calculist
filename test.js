@@ -78,9 +78,55 @@ describe('calculation', () => {
     expect(list.$item('fizz').valueOf()).to.eq(9)
   })
 
+  it('references items with square bracket accessor correctly', () => {
+    let list = calculist.new({
+      text: 'foo',
+      items: [
+        {
+          text: 'data',
+          items: [{
+            text: '1',
+            items: [{text: 'a [=] 1.618'}, {text: 'b [=] -3'}]
+          },{
+            text: '2',
+            items: [{text: 'a [=] 2.718'}, {text: 'b [=] 42'}]
+          },]
+        },
+        {text: 'result [=] sum(data["a"])'}
+      ]
+    })
+    expect(list.$item('result').valueOf()).to.eq(1.618 + 2.718)
+  })
+
   it('references `$name` correctly', () => {
     let list = calculist.new({ text: 'foo [=] $name + 1' })
     expect(list.valueOf()).to.eq('foo1')
+  })
+
+  it('references `$parent` correctly', () => {
+    let list = calculist.new({
+      text: 'foo [=] 1',
+      items: [{
+        text: 'child [=] $parent + 1'
+      }]
+    })
+    expect(list.$item('child').valueOf()).to.eq(2)
+  })
+
+  it('references `$index` correctly', () => {
+    let list = calculist.new({
+      text: 'foo [=] 1',
+      items: [{
+        text: 'child 0 [=] $index'
+      },{
+        text: 'child 1 [=] $index'
+      },{
+        text: 'child 2 [=] $index'
+      }]
+    })
+    list.items.forEach((item, index) => {
+      expect(item.valueOf()).to.eq(index)
+    })
   })
 
   it('calculates `sum($items)` correctly', () => {
