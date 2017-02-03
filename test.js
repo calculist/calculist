@@ -36,7 +36,7 @@ describe('basic functionality', () => {
 
 })
 
-describe('calculation', () => {
+describe('basic calculation', () => {
 
   it('calculates plain values correctly', () => {
     let list = calculist.new({ text: 'foo [:] 1 + 1' })
@@ -141,3 +141,63 @@ describe('calculation', () => {
   })
 
 })
+
+describe('math calculation', () => {
+
+  const constants = ['E','LN2','LN10','LOG2E','LOG10E','PI','SQRT1_2','SQRT2']
+
+  constants.forEach((constant) => {
+    it(`includes the ${constant} constant`, () => {
+      let list = calculist.new({
+        text: `${constant} [=] ${constant}`,
+      })
+      expect(list.valueOf()).to.eq(Math[constant])
+    })
+  })
+
+  const mathFunctions = ['abs','acos','acosh','asin','asinh','atan','atan2','atanh','cbrt','ceil','clz32','cos','cosh','exp','expm1','floor','fround','hypot','imul','log','log1p','log2','log10','pow','round','sign','sin','sinh','sqrt','tan','tanh','trunc']
+  const multiArgumentMathFunctions = ['atan2','hypot','imul','pow']
+  const specialCaseFunctions = ['acosh','random']
+  const singleArgumentMathFunctions = mathFunctions.filter((fn) => !(multiArgumentMathFunctions.includes(fn) || specialCaseFunctions.includes(fn)))
+
+  singleArgumentMathFunctions.forEach((fn) => {
+    it(`includes the ${fn} function`, () => {
+      let x = 0.123
+      let list = calculist.new({
+        text: `${fn} [=] ${fn}(${x})`,
+      })
+      expect(list.valueOf()).to.eq(Math[fn](x))
+    })
+  })
+
+  multiArgumentMathFunctions.forEach((fn) => {
+    it(`includes the ${fn} function`, () => {
+      let x = 0.123
+      let y = 0.456
+      let list = calculist.new({
+        text: `${fn} [=] ${fn}(${x}, ${y})`,
+      })
+      expect(list.valueOf()).to.eq(Math[fn](x, y))
+    })
+  })
+
+  specialCaseFunctions.forEach((fn) => {
+    it(`includes the ${fn} function`, () => {
+      if (fn == 'random') {
+        let list = calculist.new({
+          text: `random [=] random()`,
+        })
+        expect(Math.floor(list.valueOf())).to.eq(0)
+        expect(Math.ceil(list.valueOf())).to.eq(1)
+      } else {
+        let x = Math.PI
+        let list = calculist.new({
+          text: `${fn} [=] ${fn}(${x})`,
+        })
+        expect(list.valueOf()).to.eq(Math[fn](x))
+      }
+    })
+  })
+
+})
+
