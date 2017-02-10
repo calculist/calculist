@@ -201,3 +201,112 @@ describe('math calculation', () => {
 
 })
 
+describe('stats calculation', () => {
+
+  const ss = require('simple-statistics')
+
+  it('includes the min function', () => {
+    let list = calculist.new({
+      text: 'min [=] min($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(-1)
+  })
+
+  it('includes the max function', () => {
+    let list = calculist.new({
+      text: 'max [=] max($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(2)
+  })
+
+  it('includes the sum function', () => {
+    let list = calculist.new({
+      text: 'sum [=] sum($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(1)
+  })
+
+  it('includes the product function', () => {
+    let list = calculist.new({
+      text: 'product [=] product($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 3' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(-6)
+  })
+
+  it('includes the mean function', () => {
+    let list = calculist.new({
+      text: 'mean [=] mean($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(1 / 3)
+  })
+
+  it('includes the average function', () => {
+    let list = calculist.new({
+      text: 'average [=] average($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(1 / 3)
+  })
+
+  it('includes the median function', () => {
+    let list = calculist.new({
+      text: 'median [=] median($items)',
+      items: [{ text: '[=] -1' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(0)
+  })
+
+  it('includes the mode function', () => {
+    let list = calculist.new({
+      text: 'mode [=] mode($items)',
+      items: [{ text: '[=] 0' }, { text: '[=] 0' }, { text: '[=] 2' }, ]
+    })
+    expect(list.valueOf()).to.eq(0)
+  })
+
+  it('includes the quantile function', () => {
+    let data = [-1, 0, 2]
+    let list = calculist.new({
+      text: 'quantile [=] quantile($items, 0.5)',
+      items: data.map((d) => ({ text: `[=] ${d}` }))
+    })
+    expect(list.valueOf()).to.eq(ss.quantile(data, 0.5))
+  })
+
+  // sumNthPowerDeviations
+  // zScore
+  // rSquared
+  // linearRegressionLine
+  // tTest
+  // tTestTwoSample
+  // cumulativeStdNormalProbability
+  // errorFunction
+  // inverseErrorFunction
+  // probit
+
+  let singleFlatArrayFns = ['variance','sampleVariance','standardDeviation','sampleStandardDeviation',
+                            'medianAbsoluteDeviation','interquartileRange','harmonicMean','geometricMean',
+                            'rootMeanSquare','sampleSkewness']
+
+  singleFlatArrayFns.forEach((fn) => {
+    it(`includes the ${fn} function`, () => {
+      let data = [1, 5, 2]
+      let list = calculist.new({
+        text: `${fn} [=] ${fn}($items)`,
+        items: data.map((d) => ({ text: `[=] ${d}` }))
+      })
+      expect(list.valueOf()).to.eq(ss[fn](data))
+    })
+  })
+
+  let doubleFlatArrayFns = ['sampleCorrelation','sampleCovariance']
+
+  // binomialDistribution
+  let singleNumberFns = ['bernoulliDistribution','poissonDistribution','factorial']
+
+})
