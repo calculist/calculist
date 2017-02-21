@@ -89,13 +89,18 @@ describe('basic calculation', () => {
             items: [{text: 'a [=] 1.618'}, {text: 'b [=] -3'}]
           },{
             text: '2',
-            items: [{text: 'a [=] 2.718'}, {text: 'b [=] 42'}]
+            items: [{
+              text: 'a [=] 2.718'
+            },{
+              text: 'b [=] 42',
+              items: [{ text: 'c [=] 256'}]
+            }]
           },]
         },
-        {text: 'result [=] sum(data["a"])'}
+        {text: 'result [=] sum(data["a"]) + sum(data["b"]["c"])'}
       ]
     })
-    expect(list.$item('result').valueOf()).to.eq(1.618 + 2.718)
+    expect(list.$item('result').valueOf()).to.eq(1.618 + 2.718 + 256)
   })
 
   it('references `$name` correctly', () => {
