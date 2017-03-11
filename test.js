@@ -162,7 +162,7 @@ describe('math calculation', () => {
 
   const mathFunctions = ['abs','acos','acosh','asin','asinh','atan','atan2','atanh','cbrt','ceil','clz32','cos','cosh','exp','expm1','floor','fround','hypot','imul','log','log1p','log2','log10','pow','round','sign','sin','sinh','sqrt','tan','tanh','trunc']
   const multiArgumentMathFunctions = ['atan2','hypot','imul','pow']
-  const specialCaseFunctions = ['acosh','random']
+  const specialCaseFunctions = ['acosh','random','gcd','lcm']
   const singleArgumentMathFunctions = mathFunctions.filter((fn) => !(multiArgumentMathFunctions.includes(fn) || specialCaseFunctions.includes(fn)))
 
   singleArgumentMathFunctions.forEach((fn) => {
@@ -188,18 +188,31 @@ describe('math calculation', () => {
 
   specialCaseFunctions.forEach((fn) => {
     it(`includes the ${fn} function`, () => {
-      if (fn == 'random') {
-        let list = calculist.new({
-          text: `random [=] random()`,
-        })
-        expect(Math.floor(list.valueOf())).to.eq(0)
-        expect(Math.ceil(list.valueOf())).to.eq(1)
-      } else {
-        let x = Math.PI
-        let list = calculist.new({
-          text: `${fn} [=] ${fn}(${x})`,
-        })
-        expect(list.valueOf()).to.eq(Math[fn](x))
+      switch (fn) {
+        case 'random':
+          let random = calculist.new({ text: `random [=] random()` }).valueOf()
+          expect(Math.floor(random)).to.eq(0)
+          expect(Math.ceil(random)).to.eq(1)
+          break
+        case 'acosh':
+          let acosh = calculist.new({ text: `acosh [=] acosh(PI)` }).valueOf()
+          expect(acosh).to.eq(Math.acosh(Math.PI))
+          break
+        case 'gcd':
+          let gcd = calculist.new({ text: `gcd [=] gcd(12, 16)` }).valueOf()
+          expect(gcd).to.eq(4)
+          let nonIntegerGCD = calculist.new({ text: `gcd [=] gcd(12.1, 16)` }).valueOf()
+          expect(nonIntegerGCD).to.be.NaN
+          break
+        case 'lcm':
+          let lcm = calculist.new({ text: `lcm [=] lcm(12, 16)` }).valueOf()
+          expect(lcm).to.eq(48)
+          let nonIntegerLCM = calculist.new({ text: `lcm [=] lcm(12.1, 16)` }).valueOf()
+          expect(nonIntegerLCM).to.be.NaN
+          break
+        default:
+          throw Error(`untested function ${fn}`)
+          break
       }
     })
   })
