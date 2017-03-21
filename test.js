@@ -103,6 +103,11 @@ describe('basic calculation', () => {
     expect(list.$item('result').valueOf()).to.eq(1.618 + 2.718 + 256)
   })
 
+  it('calculates assignments correctly', () => {
+    let list = calculist.new({ text: 'foo [=] (a = 1 + 1) * a' })
+    expect(list.valueOf()).to.eq(4)
+  })
+
   it('references `$name` correctly', () => {
     let list = calculist.new({ text: 'foo [=] $name + 1' })
     expect(list.valueOf()).to.eq('foo1')
