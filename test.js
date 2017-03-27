@@ -53,6 +53,11 @@ describe('basic calculation', () => {
     expect(list.valueOf()(1, 1)).to.eq(2)
   })
 
+  it('parses non-value expressions correctly', () => {
+    let list = calculist.new({ text: 'foo [=#] a = 1 + 1' })
+    expect(list.valueOf()).to.eq('foo')
+  })
+
   it('references variables correctly', () => {
     let list = calculist.new({
       text: 'foo bar [=] 5',
