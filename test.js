@@ -75,7 +75,13 @@ describe('basic calculation', () => {
       items: [
         {
           text: 'b',
-          items: [{text: 'uzz [=] 9'}]
+          items: [{
+            text: 'uzz [=] $items.x + $items.y',
+            items: [
+              {text: 'x [=] 3'},
+              {text: 'y [=] 6'}
+            ]
+          }]
         },
         {text: 'fizz [=] b.uzz'}
       ]
