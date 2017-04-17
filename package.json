@@ -10,7 +10,8 @@
     "url": "https://github.com/calculist/calculist.git"
   },
   "scripts": {
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "test": "mocha"
   },
   "dependencies": {
     "lodash": "^4.11.1",
