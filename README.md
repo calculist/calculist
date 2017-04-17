@@ -1,5 +1,7 @@
 # Calculist
 
+[![Build Status](https://travis-ci.org/calculist/calculist.svg?branch=master)](https://travis-ci.org/calculist/calculist)
+
 For private beta participants, please use this repository's [issues](https://github.com/calculist/calculist/issues) to report bugs or make feature requests. If you don't have a GitHub account, you can email me at [dan@calculist.io](mailto:dan@calculist.io).
 
 ## About this repo
