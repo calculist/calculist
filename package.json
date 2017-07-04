@@ -1,6 +1,6 @@
 {
   "name": "calculist",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "a thinking tool for problem solvers",
   "author": "Dan Allison <dan@calculist.io>",
   "main": "./main.js",
