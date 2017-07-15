@@ -178,7 +178,7 @@ describe('math calculation', () => {
 
   const mathFunctions = ['abs','acos','acosh','asin','asinh','atan','atan2','atanh','cbrt','ceil','clz32','cos','cosh','exp','expm1','floor','fround','hypot','imul','log','log1p','log2','log10','pow','round','sign','sin','sinh','sqrt','tan','tanh','trunc']
   const multiArgumentMathFunctions = ['atan2','hypot','imul','pow']
-  const specialCaseFunctions = ['acosh','random','gcd','lcm']
+  const specialCaseFunctions = ['acosh','random','gcd','lcm','mod','fraction']
   const singleArgumentMathFunctions = mathFunctions.filter((fn) => !(multiArgumentMathFunctions.includes(fn) || specialCaseFunctions.includes(fn)))
 
   singleArgumentMathFunctions.forEach((fn) => {
@@ -225,6 +225,18 @@ describe('math calculation', () => {
           expect(lcm).to.eq(48)
           let nonIntegerLCM = calculist.new({ text: `lcm [=] lcm(12.1, 16)` }).valueOf()
           expect(nonIntegerLCM).to.be.NaN
+          break
+        case 'mod':
+          let mod = calculist.new({ text: `mod [=] mod(13, 10)` }).valueOf()
+          expect(mod).to.eq(3)
+          let negMod = calculist.new({ text: `mod [=] mod(-13, 10)` }).valueOf()
+          expect(negMod).to.eq(7)
+          break
+        case 'fraction':
+          let fraction = calculist.new({ text: `fraction [=] fraction(3, 9)` }).valueOf()
+          expect(fraction).to.eq('1/3')
+          let decFrac = calculist.new({ text: `fraction [=] fraction(1.75)` }).valueOf()
+          expect(decFrac).to.eq('7/4')
           break
         default:
           throw Error(`untested function ${fn}`)
