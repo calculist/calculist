@@ -356,3 +356,15 @@ describe('stats calculation', () => {
   let singleNumberFns = ['bernoulliDistribution','poissonDistribution','factorial']
 
 })
+
+describe('utility functions', () => {
+
+  it('counts words correctly', () => {
+    let list = calculist.new({
+      text: 'words [=] word_count($items)',
+      items: [{ text: 'this sentence is false' }]
+    })
+    expect(list.valueOf()).to.eq(4)
+  })
+
+})
