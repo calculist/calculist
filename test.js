@@ -150,6 +150,17 @@ describe('basic calculation', () => {
     })
   })
 
+  it('references `$guid` correctly', () => {
+    let list = calculist.new({
+      text: 'foo [=] $guid',
+      items: [{
+        text: 'child [=] @item(guid_of($parent))'
+      }]
+    })
+    expect(list.valueOf()).to.eq(list.guid)
+    expect(list.$item('child').valueOf()).to.eq(list)
+  })
+
   it('calculates `sum($items)` correctly', () => {
     let list = calculist.new({
       text: 'foo [=] sum($items)',
