@@ -14,9 +14,10 @@
     "test": "mocha"
   },
   "dependencies": {
-    "lodash": "^4.11.1",
+    "lodash": "^4.17.4",
     "simple-statistics": "^2.2.0",
-    "evalculist": ">=0.2.1"
+    "evalculist": ">=0.2.1",
+    "acyclic": "*"
   },
   "devDependencies": {
     "chai": "*",

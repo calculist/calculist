@@ -1,10 +1,15 @@
-var Item = require('./lib/item/Item');
 var _ = require('lodash');
+var getNewDocumentGraph = require('./lib/getNewDocumentGraph');
 
 var calculist = {};
 
 calculist.new = function (obj) {
-  return new Item(obj);
+  var topItem;
+  var graph = getNewDocumentGraph();
+  graph.init(['Item'], function (Item) {
+    topItem = new Item(obj);
+  });
+  return topItem;
 };
 
 calculist.toHTML = function (list) {
