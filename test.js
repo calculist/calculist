@@ -248,6 +248,8 @@ describe('math calculation', () => {
           expect(fraction).to.eq('1/3')
           let decFrac = calculist.new({ text: `fraction [=] fraction(1.75)` }).valueOf()
           expect(decFrac).to.eq('7/4')
+          let doubledFrac = calculist.new({ text: `fraction [=] fraction(1.75, lambda("n, d | (n * 2) + '/' + (d * 2)"))` }).valueOf()
+          expect(doubledFrac).to.eq('14/8')
           break
         default:
           throw Error(`untested function ${fn}`)
