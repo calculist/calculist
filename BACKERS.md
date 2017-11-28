@@ -4,3 +4,4 @@ Calculist is an open source project. Ongoing development is made possible by the
 
 - [Kevin Musiorski](https://github.com/rudyonrails)
 - Giovanni T. Parra
+- Chase Lambert
